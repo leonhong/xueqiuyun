@@ -1,0 +1,30 @@
+
+#### by hongl ####
+#*/10 * * * * cd /home/app/alarm/logmoitor/alert && /bin/bash alarm_client.sh client 1>/home/app/alarm/logmoitor/alert/alert.log 2>&1
+#* * * * *  /home/app/alarm/monitor/control.py
+
+
+#####15 22 * * * cd /home/app/cron/gupiao/StockSpider && /bin/bash start.sh 1>/home/app/cron/gupiao/StockSpider/spider.log 2>&1
+
+
+#####     stock    #####
+##### 1. real time #####
+#40 16 * * * cd /home/app/stock/current && /bin/bash start_all_current_spider.sh 1>/home/app/stock/current/current.out 2>&1
+#10 18 * * * cd /home/app/gupiao/htdocs/tableview && /bin/bash stock_real.sh 1>/home/app/gupiao/htdocs/tableview/stock_real.log 2>&1
+
+##### 2. history #####
+10 03 * * * cd /home/app/stock/history && /bin/bash start_all_history_spider.sh 1>/home/app/stock/history/history.out 2>&1
+10 06 * * * cd /home/app/gupiao/htdocs/tableview && /bin/bash stock_history.sh 1>/home/app/gupiao/htdocs/tableview/stock_history.log 2>&1
+1 20 * * 1  cd /home/app/StorkControl/ && /bin/bash ./killall.sh
+
+##### 3. news #####
+#0 9 * * * cd  /home/app/stock/current/news/ && /bin/bash spiderNews.sh 1>/home/app/stock/current/news/spiderNews.log 2>&1
+#0 13 * * * cd  /home/app/stock/current/news/ && /bin/bash spiderNews.sh 1>/home/app/stock/current/news/spiderNews.log 2>&1
+
+
+##### test ###
+####30 1 * * * cd /home/app/gupiao/htdocs/tableview && /bin/bash stock_history.sh 1>/home/app/gupiao/htdocs/tableview/stock_history.log 2>&1
+#####02 12 * * * cd /home/app/gupiao/htdocs/tableview && /bin/bash stock_real.sh 1>/home/app/gupiao/htdocs/tableview/stock_real.log1 2>&1
+#####47 12 * * * cd /home/app/gupiao/htdocs/tableview && /bin/bash stock_history.sh 1>/home/app/gupiao/htdocs/tableview/stock_history.log 2>&1
+
+#####    stock    #####
