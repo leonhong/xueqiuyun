@@ -1,0 +1,17 @@
+2017-09-19 23:01:04 [scrapy] ERROR: Spider error processing <GET http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/600000/ctrl/all.phtml> (referer: None)
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/scrapy/utils/defer.py", line 102, in iter_errback
+    yield next(it)
+  File "/usr/local/lib/python2.7/site-packages/scrapy/spidermiddlewares/offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "/usr/local/lib/python2.7/site-packages/scrapy/spidermiddlewares/referer.py", line 22, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "/usr/local/lib/python2.7/site-packages/scrapy/spidermiddlewares/urllength.py", line 37, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "/usr/local/lib/python2.7/site-packages/scrapy/spidermiddlewares/depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "/home/app/stock/current/HSstock/HSstock/spiders/xl_hs_lirun.py", line 122, in getdata
+    item["jingliru"] = data[24][i]
+  File "/usr/local/lib/python2.7/site-packages/scrapy/item.py", line 63, in __setitem__
+    (self.__class__.__name__, key))
+KeyError: 'hs_lirun does not support field: jingliru'

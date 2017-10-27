@@ -1,0 +1,153 @@
+header {
+	background: linear-gradient(to bottom, #086ed5, #055db5);
+	line-height: 59px;
+	height: 59px;
+	color: #fff;
+	margin-bottom: 30px;
+}
+
+.hktitle h3 {
+	font-size: 18px;
+	color: #000;
+}
+
+.hktitle h1 {
+	font-size: 36px;
+	color: #0081f2;
+}
+.headuser{
+	float: right;
+	margin-right: 20px;
+}
+
+.title_btn{
+	position: absolute;
+	display: block; 
+    margin-top: 3px;
+    width: 72px;
+    height: 33px;
+    line-height: 33px;
+    margin-right: 10px;
+    border: 1px solid #045bb2;
+    border-radius: 4px;
+    background: #0e78e7;
+    background: -webkit-linear-gradient(top,#0e7bef,#0d73da);
+    background: linear-gradient(to bottom,#0e7bef,#0d73da);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0,0,0,.12);
+    outline: 0;
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.title_btn:hover{
+	color: #fff;
+}
+.hktitle small {
+	font-size: 12px;
+	color: #464e56;
+}
+
+.hk_detailwy {
+	padding-right: 20px;
+}
+
+.hk_detailwy .col-md-6 {
+	padding-left: 0
+}
+
+.hk_detailwy table {
+	width: 48%;
+	float: left;
+	margin-right: 2%;
+}
+
+.hk_detailwy td {
+	border-top: none !important;
+	border-bottom: 1px solid #e0e4e9;
+	font-size: 15px !important;
+	padding: 18px 0 !important;
+	text-align: right !important;
+	font-weight: bold !important;
+	color: #000;
+	line-height: 18px;
+}
+
+.hk_detailwy td span {
+	text-align: left;
+	display: block;
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 19px;
+}
+
+.hk_detailwy .table-responsive {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.hk_detailwy .table-responsive table {
+	width: 800px;
+	float: none;
+	margin: 0;
+}
+
+.hk_detailwy .table-responsive table td {
+	font-weight: normal !important;
+	text-align: center !important;
+	padding: 6px 0 !important;
+	font-size: 12px !important;
+}
+.hk_detailwy .table-responsive table td div,.hk_detailwy .table-responsive table th div{
+	width:85px;
+}
+.hk_detailwy .table-responsive table th {
+	padding: 5px 0 !important;
+	font-size: 12px !important;
+}
+.hweixin-img{
+    width: 25px;
+    height: 25px;
+}
+.hweixin-span{
+	margin-left:5px;
+	font-size: 15px;
+}
+.hweixin-margin{
+	position: absolute;
+	display: inline-block;
+    top: 0px;
+    right: 25px;
+}
+@media only screen and (min-width: 320px) and (max-width: 500px) {
+	.hk_detailwy table {
+		width: 100%
+	}
+	.hweixin-margin{
+		position: absolute;
+		display: inline-block;
+		right: 20px;
+	}
+}
+@media only screen and (max-width: 750px) and (min-width:550px)  {
+		.hweixin-margin{
+		position: absolute;
+		display: inline-block;
+		right: 20px;
+	}
+}
+@media (max-width: 992px) {
+	.col-md-6 {
+		padding-right: 0;
+	}
+	.hk_detailwy .table2 {
+		margin-right: 0;
+		float: right;
+	}
+	table {
+		margin-bottom: 0 !important;
+	}
+}

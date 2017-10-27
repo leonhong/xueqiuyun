@@ -1,0 +1,194 @@
+# -*- coding:utf-8 -*-
+import json
+import logging
+
+import MySQLdb
+import scrapy
+from HSstock.items import hs_lirun
+from scrapy import Request
+import time
+
+#proxyHost = "proxy.abuyun.com"
+#proxyPort = "9020"
+#proxyUser = "HJ265K5QABVY4Q4D"
+#proxyPass = "C29187311FFB921E"
+#
+#proxyMeta = "http://%(user)s:%(pass)s@%(host)s:%(port)s" % {
+#    "host" : proxyHost,
+#    "port" : proxyPort,
+#    "user" : proxyUser,
+#    "pass" : proxyPass,
+#}
+#
+#proxy_handler = urllib2.ProxyHandler({
+#    "http"  : proxyMeta,
+#    "https" : proxyMeta,
+#})
+#
+#opener = urllib2.build_opener(proxy_handler)
+#urllib2.install_opener(opener)
+
+class lirun(scrapy.Spider):
+    name = "hslirun"
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Encoding": "gzip,deflate,br,sdch",
+        "Accept-Language": "ezh-CN,zh;q=0.8,en;q=0.6",
+        "Connection": "keep-alive",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:49.0) Gecko/20100101 Firefox/49.0"
+    }
+
+    custom_settings = {
+        'ITEM_PIPELINES': {'HSstock.pipelines.hs_lirun': 300},
+        'LOG_LEVEL': "INFO"
+    }
+
+    def start_requests(self):
+        print "---------------"
+        self.update_time = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())))
+        conn = MySQLdb.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',
+            passwd='20160401',
+            db='stock',
+            charset='utf8'
+        )
+        cur = conn.cursor()
+        sql = "select stock_code from sh_stock_list"
+        cur.execute(sql)
+        rows = cur.fetchall()
+        for row in rows:
+            code = row[0]
+            url="http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/"+code+"/ctrl/all.phtml"
+            yield Request(url=url,
+                      headers=self.headers, callback=self.getdata, meta={"stock_code": code})
+
+        cur = conn.cursor()
+        sql = "select stock_code from sz_stock_list"
+        cur.execute(sql)
+        rows = cur.fetchall()
+        for row in rows:
+            code = row[0]
+            url = "http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/" + code + "/ctrl/all.phtml"
+            yield Request(url=url,
+                          headers=self.headers, callback=self.getdata, meta={"stock_code": code})
+        conn.close()
+
+    def getdata(self,response):
+        code=response.meta["stock_code"]
+        data=response.body.decode("gb2312").encode("utf-8").split("\n")[0:-1]
+        for i in range (0,len(data)):
+            data[i]=data[i].split("\t")
+        if data[3][0]=='净利息收入':
+            for i in range(1,len(data[0])-2):
+                item=hs_lirun()
+                item["bank"]=True
+                item["code"] = code
+                item["time"] = data[0][i]
+                print item["time"]
+                item["danwei"] = data[1][i]
+                item["yingyeshouru"] = data[2][i]
+                item["jinglixishouru"] = data[3][i]
+                item["lixishouru"] = data[4][i]
+                item["lixizhichu"] = data[5][i]
+                item["shouxufeijirongjinjingshouru"] = data[6][i]
+                item["shouxufeijirongjinshouru"] = data[7][i]
+                item["shouxufeijirongjinzhichu"] = data[8][i]
+                item["zhongjianyewujingshouru"] = data[9][i]
+                item["zhongjianyewushouru"] = data[10][i]
+                item["zhongjianyewuzhichu"] = data[11][i]
+                item["jingjiaoyishouru"] = data[12][i]
+                item["yanshengjinronggongjujiaoyijingshouru"] = data[13][i]
+                item["huiduishouyi"] = data[14][i]
+                item["touzijingshouyi"] = data[15][i]
+                item["duilianyinggongsitouzishouyi"] = data[16][i]
+                item["gongyunjiazhibiandongshouyi"] = data[17][i]
+                item["qitayewushouru"] = data[18][i]
+                item["yingyezhichu"] = data[19][i]
+                item["yingyeshuijinjifujia"] = data[20][i]
+                item["yewujiguanlifeiyong"] = data[21][i]
+                item["zichanjianzhisunshi"] = data[22][i]
+                item["zhejiufei"] = data[23][i]
+                item["tiqudaizhangzhunbei"] = data[24][i]
+                item["qitayewuzhichu"] = data[25][i]
+                item["yingyelirun"] = data[26][i]
+                item["yingyewaishouru"] = data[27][i]
+                item["yingyewaizhichu"] = data[28][i]
+                item["lirunzhonge"] = data[29][i]
+                item["suodeshui"] = data[30][i]
+                item["shaoshugudongquanyi"] = data[31][i]
+                item["guishumugongsidejinglirun"] = data[32][i]
+                item["nianchumweifenpeilirun"] = data[33][i]
+                item["kegongfenpeilirun"] = data[34][i]
+                item["tiqufadingyingyugongji"] = data[35][i]
+                item["tiqufadinggongyijin"] = data[36][i]
+                item["tiquyibanfengxianzhunbe"] = data[37][i]
+                item["tiquxintuopeichangzhunbeijin"] = data[38][i]
+                item["kegonggudongfenpeilirun"] = data[39][i]
+                item["yingfuyouxianguguli"] = data[40][i]
+                item["tiqurenyiyingyugongji"] = data[41][i]
+                item["yingfuputongguguli"] = data[42][i]
+                item["zhuanzuogubendeputongguguli"] = data[43][i]
+                item["weifenpeilirun"] = data[44][i]
+                item["jibenmeigushouyi"] = data[45][i]
+                item["xishimeigushouyi"] = data[46][i]
+
+                yield item
+        else:
+            for i in range(1,len(data[0])-2):
+                item=hs_lirun()
+                item["bank"]=False
+                item["code"] = code
+                item["time"] = data[0][i]
+                print item["time"]
+                item["danwei"] = data[1][i]
+                item["yingyezhongshouru"] = data[2][i]
+                item["yingyeshouru"] = data[3][i]
+                item["lixishouru"] = data[4][i]
+                item["yizhuanbaofei"] = data[5][i]
+                item["shouxufeijiyongjinshouru"] = data[6][i]
+                item["fangdichanxiaoshoushouru"] = data[7][i]
+                item["qitayewushouru"] = data[8][i]
+                item["yingyezhongchengben"] = data[9][i]
+                item["yingyechengben"] = data[10][i]
+                item["lixizhichu"] = data[11][i]
+                item["shouxufeijiyongjinzhichu"] = data[12][i]
+                item["fangdichanxiaoshouchengben"] = data[13][i]
+                item["yanfafeiyong"] = data[14][i]
+                item["tuibaojin"] = data[15][i]
+                item["peifuzhichujinge"] = data[16][i]
+                item["tiqubaoxianhetongzhunbeijinjinge"] = data[17][i]
+                item["baodanhonglizhichu"] = data[18][i]
+                item["fenbaofeiyong"] = data[19][i]
+                item["titayewuchengben"] = data[20][i]
+                item["yingyeshuijinjifujia"] = data[21][i]
+                item["xiaoshoufeiyong"] = data[22][i]
+                item["guanlifeiyong"] = data[23][i]
+                item["chaiwufeiyong"] = data[24][i]
+                item["zichanjianzhisunshi"] = data[25][i]
+                item["gongyunjiazhibiandongshouyi"] = data[26][i]
+                item["touzishouyi"] = data[27][i]
+                item["duilianyingqiyeheheyingqiyetouzishouyi"] = data[28][i]
+                item["huiduishouyi"] = data[29][i]
+                item["qihuoshouyi"] = data[30][i]
+                item["tuoguanshouyi"] = data[31][i]
+                item["butieshouru"] = data[32][i]
+                item["qitayewulirun"] = data[33][i]
+                item["yingyelirun"] = data[34][i]
+                item["yingyewaishouru"] = data[35][i]
+                item["yingyewaizhichu"] = data[36][i]
+                item["feiliudongzichanchuzhisunshi"] = data[37][i]
+                item["lirunzhonge"] = data[38][i]
+                item["suodeshuifeiyong"] = data[39][i]
+                item["weiquerentouzisunshi"] = data[40][i]
+                item["jinglirun"] = data[41][i]
+                item["guishuyumugongsisuoyouzhejingliru"] = data[42][i]
+                item["shaoshugudongsunyi"] = data[43][i]
+                item["jinbenmeigushouyi"] = data[45][i]
+                item["xishimeigushouyi"] = data[46][i]
+                item["yitazhongheshouyi"] = data[47][i]
+                item["zhongheshouyizhonge"] = data[48][i]
+                item["guishuyumugongsisuoyouzhedezhongheshouyizhonge"] = data[49][i]
+                item["guishuyushaoshugudongdezhongheshouyizhonge"] = data[50][i]
+                yield item

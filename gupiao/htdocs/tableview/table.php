@@ -1,0 +1,548 @@
+<?php
+	session_start();
+    if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
+        header("location:/login.php");
+    }
+    $long = time()-$_SESSION['login_time'];
+    if($long/60>60*12){
+        header("location:/out.php");
+    }
+	?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="bootstrap/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="bootstrap/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="bootstrap/css/app.css" type="text/css" />
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <!--select美化-->    
+	<link rel="stylesheet" href="js/select2/select2.css" type="text/css">
+	<link rel="stylesheet" href="js/select2/theme.css" type="text/css">
+	<script src="js/select2/select2.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="css/table.css" />
+	<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body>
+<section class="vbox">
+    <section class="panel panel-default">
+        <header class="" style="">
+            <h4>股票</h4>
+            <form method="get" action="/table.php" id="sou">
+	            <input type="hidden" name="sort" value="" />
+	            <input type="hidden" name="name" value=""/>
+	            <input type="hidden" name="htype" value="<?php echo $_GET['htype']?>">
+	        <div class="" style="">
+	        	 <div class="col3">
+	                <div class="input-group"  >
+	                    <input type="text" class="zu-top-search-input" placeholder="股票代码/股票名称" name="key" value="<?php echo $_GET['key'];?>">
+	                      <span class="input-group-btn">
+	                        <button class="zu-top-search-button" id="gosearch" type="button">搜索</button>
+	                      </span>
+	                </div>
+	            </div>
+	            <div class="col1">
+	                <div class="btn-group btnnav" data-toggle="buttons">
+	                    <label class="btn zu-top-nav-link <?php if($_GET['htype']=='hs'){ echo 'btn-danger active';} ?>">
+	                        <input type="radio" name="options" id="hs"> 沪深
+	                    </label>
+	                    <label class="btn zu-top-nav-link <?php if($_GET['htype']=='gg'||!isset($_GET['htype'])){ echo 'btn-danger active';} ?>">
+	                        <input type="radio" name="options" id="gg"> 港股
+	                    </label>
+	                    <label class="btn zu-top-nav-link <?php if($_GET['htype']=='ggt'){ echo 'btn-danger active';} ?>">
+	                        <input type="radio" name="options" id="ggt"> 港股通
+	                    </label>
+	                </div>
+	            </div>
+	            <div class="col2">
+	                <span style="display: inline-block;width: 70px;float: left;">筛选公式：</span>
+	                <select class=" inline select2-offscreen" id="formula" name="type" style="width: 204px;">
+	                    <option value="-1">选择公式</option>
+	                    <option value="0" <?php if($_GET['type']=='0'){ ?>selected="selected"<?php } ?>>双五组合</option>
+	                    <option value="1" <?php if($_GET['type']=='1'){ ?>selected="selected"<?php } ?>>格雷厄姆公式</option>
+	                    <option value="2" <?php if($_GET['type']=='2'){ ?>selected="selected"<?php } ?>>净净</option>
+	                    <option value="3" <?php if($_GET['type']=='3'){ ?>selected="selected"<?php } ?>>神奇公式</option>
+                        <option value="5" <?php if($_GET['type']=='5'){ ?>selected="selected"<?php } ?>>R15</option>
+                        <option value="6" <?php if($_GET['type']=='6'){ ?>selected="selected"<?php } ?>>52周最低</option>
+	                </select>
+	            </div>
+	            <?php   if(isset($_SESSION['adminuser'])){  ?>
+	                <div class="headuser">
+	                	<div class="btn-group" data-toggle="buttons">
+			            	<label class="btn " data-toggle="modal" data-target="#stockmangement">
+		                       	<input type="radio" name="options" id="admin"> 股票管理
+		                    </label>
+	                    </div>
+						<div class="col4 hweixin-margin">
+							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">xueqiuyun888<span>
+						</div>
+		            	<img src="img/da8e974dc_s.jpg"/>
+		            	<span><?php echo $_SESSION['adminuser'] ?></span>&nbsp;&nbsp;
+		            	<a href="/out.php" class="logout">注销</a>
+		            </div>
+	            <?php }else{?>
+	            	<div class="headuser">
+						<div class="col4 hweixin-margin">
+							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">xueqiuyun888<span>
+						</div>
+		            	<img src="img/da8e974dc_s.jpg"/>
+		            	<span>游客</span>&nbsp;&nbsp;
+                        <a href="/out.php" class="logout">注销</a>
+		            </div>
+	           <?php }?>
+	            
+				<div style="clear: both;"></div>
+	           
+	        </div>
+        </form>
+        </header>
+        
+        <div class="table-responsive list_left">
+	        <table class="table table-striped  b-light text-sm ">
+	        	<thead>
+	        		<tr>
+	        			<th><div>股票代码</div></th>
+	        			<th><div>名称</div></th>
+	        		</tr>
+	        	</thead>
+	        	<tbody>
+	        		 <?php
+                /**
+                 * 执行股票列表计算
+                 */
+                $basedir = dirname(__FILE__) . '/../../lib';
+                include  $basedir.'/config.php';
+                include  $basedir.'/functions.php';
+                include $basedir.'/mysqli.php';
+
+
+                /*配置数据库*/
+
+$db_conf['host'] = 'localhost';
+$db_conf['username'] = 'root';
+$db_conf['password'] = '20160401';
+$db_conf['database'] = 'stock';
+$db_conf['prot'] = '3306';
+                /*实例DB*/
+                $db =  new DB($db_conf);
+                $prepage = 50;
+                if($_GET['htype']=='ggt'){
+                    $where = 'where is_hk=1 ';
+                }else{
+                    $where = 'where 1=1 ';
+                }
+
+                if(!empty($_GET['key'])){
+                    $where .= " and (a.`code` like '%{$_GET['key']}%' or b.name like '%{$_GET['key']}%') ";
+                }
+
+                $name = $_GET['name'];
+                $sort = $_GET['sort'];
+                if($_GET['type']>-1){
+                    switch($_GET['type']){
+                        case '0':
+                             $where .= " and a.ttm < 5 and a.ttm > 0 and a.dyr > 0.05 ";
+                            break;
+                        case '1':
+                             $where .= " and a.ttm <10 and a.ttm > 0 and a.debtratio < 0.5 and a.debtratio >0 ";
+                            break;
+                        case '2':
+                            $where .= " and  a.ttm > 0 and a.shizhi < a.jinjin ";
+                            break;
+                        case '3':
+                            //$where .=" order by a.rank_all asc";
+                            if(empty($name) && empty($sort)) {
+                               $name = 'rank_allsq';
+                               $sort  = 'asc';
+                            }
+                            break;
+                        case '4':
+                            $where .= " and is_r15='1'";
+                            break;
+                        case '5':
+                            $where .= " and yg_r15='1'";
+                            break;
+                        case '6':
+                            $where .= " and 52zuidi='1'";
+                            break;
+                    }
+                }
+                $order = '';
+                if(!empty($name) && !empty($sort)){
+                    switch($name){
+                        case 'time':
+                              $order = " order by b.update_time $sort";
+                            break;
+                        case 'gujia':
+                             $order = " order by b.gujia $sort";
+                            break;
+                        case 'rank_all':
+                            $order = " order by a.rank_all $sort";
+                            break;
+                        case 'zuidi':
+                            $order = " order by b.zuidi52 $sort";
+                            break;
+                        default:
+                            $order = " order by a.$name  $sort";
+                            break;
+                    }
+
+                 }
+
+                //获取数据总数
+                $sql = "select a.*,b.* from xl_hk_huizong as a left join xl_hk_value as b on a.`code`=b.`code` $where $order";
+
+                $count = $db->count($sql);
+                //计算页数
+                $pagecount = ceil($count/$prepage);
+                $page = $_GET['page']?$_GET['page']:1;
+                $begin = ($page-1)*$prepage;
+                $sql = "select a.*,b.* from xl_hk_huizong as a left join xl_hk_value as b on a.`code`=b.`code` $where $order  limit $begin,$prepage";
+                /*echo $sql;
+                exit;*/
+                $list = $db->select($sql);
+
+                ?>
+	        		<?php
+	        			foreach($list as $k=>$v) {
+                    ?>
+		                    <tr <?php if($v['is_hk']=='1' && $_GET['htype']!='ggt'){ ?>style="background-color: #e8f3fd;" item="1" <?php } ?>>
+		                        <td><a href="hk_detailwy.php?code=<?php echo $v['code']; ?>" class="active" data-toggle="class"><?php echo $v['code'];?></a></td>
+                            	<td><a href="hk_detailwy.php?code=<?php echo $v['code']; ?>" class="active" data-toggle="class">
+                            		<?php 
+                            			if(preg_match("/^[a-zA-Z\s]+$/",$v['name'])){
+											    echo substr($v['name'],0,8);
+											}
+                                        elseif(strpos($v['name'],'(')){
+                                            echo substr($v['name'],0,strripos($v['name'],'('));
+                                        }
+                                        else{
+											   echo substr($v['name'],0,12);											
+											}
+                            			?>
+                            			
+                            		</a></td>
+	                        </tr>
+	                <?php
+	                     }
+	                 ?>
+	        	</tbody>
+	        </table>
+        </div>
+        <div class="table-responsive"id="list" >
+            <table class="table table-striped b-light text-sm" >
+                <thead class="" style="">
+                <tr style="">
+                    <!--<th><div>股票代码</div></th>
+                    <th><div>名称 </div></th>-->
+                    <th  class="th-sortable" data-toggle="class"><div>时间
+                     <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='time'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='time'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="time"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>价格
+                   <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='gujia'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='gujia'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="gujia"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>52周最低
+                     <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='zuidi'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='zuidi'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="zuidi"></i>
+                     </span></div></th>
+                    <th  class="th-sortable" data-toggle="class"><div>财报时间
+                     <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='ctime'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='ctime'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="ctime"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>市值(亿)
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='shizhi'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='shizhi'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="shizhi"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>TTM
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='ttm'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='ttm'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="ttm"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>PB
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='pb'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='pb'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="pb"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>ROE
+                    <span class="th-sort">
+                            <?php if($_GET['type']=='3'){  ?>
+                            <i class="fa fa-sort-<?php if($_GET['name']=='roe_sq'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='roe_sq'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="roe_sq"></i>
+                            <?php }else{  ?>
+                                <i class="fa fa-sort-<?php if($_GET['name']=='roe'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='roe'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="roe"></i>
+                             <?php } ?>
+                    </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>股息率
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='dyr'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='dyr'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="dyr"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>资产负债率
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='debtratio'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='debtratio'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="debtratio"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>净净流动资产（亿）
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='jinjin'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='jinjin'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="jinjin"></i>
+                     </span></div>
+                    </th>
+                    <th  class="th-sortable" data-toggle="class"><div>净净/市值
+                     <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='bili'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='bili'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="bili"></i>
+                     </span></div></th>
+                    <th class="th-sortable" data-toggle="class"><div>Rank(TTM)
+                    <span class="th-sort">
+                            <i class="fa fa-sort-<?php if($_GET['name']=='rank_ttm'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='rank_ttm'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="rank_ttm"></i>
+                     </span></div>
+                    </th>
+                    <th class="th-sortable" data-toggle="class"><div>Rank(ROE)
+                    <span class="th-sort">
+                        <?php if($_GET['type']=='3'){  ?>
+                            <i class="fa fa-sort-<?php if($_GET['name']=='rank_roesq'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='rank_roesq'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="rank_roesq"></i>
+                        <?php }else{  ?>
+                            <i class="fa fa-sort-<?php if($_GET['name']=='rank_roe'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='rank_roe'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="rank_roe"></i>
+                        <?php } ?>
+                     </span></div>
+                    </th>
+                    <th class="th-sortable" data-toggle="class"><div>Rank
+                    <span class="th-sort">
+                        <?php if($_GET['type']=='3'){  ?>
+                            <i class="fa fa-sort-<?php if($_GET['name']=='rank_allsq'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='rank_allsq'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="rank_allsq"></i>
+                        <?php }else{  ?>
+                            <i class="fa fa-sort-<?php if($_GET['name']=='rank_all'){ echo $_GET['sort']=='asc'?'down':'up'; }else{ echo 'down'; } ?> text" sort="<?php if($_GET['name']=='rank_all'){ echo $_GET['sort']; }else{ echo 'asc';}?>" item="rank_all"></i>
+                        <?php } ?>
+                     </span></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+               
+                        <?php
+                            foreach($list as $k=>$v) {
+                                ?>
+                        <tr <?php if($v['is_hk']=='1' && $_GET['htype']!='ggt'){ ?>style="background-color: #e8f3fd;" item="1" <?php } ?>>
+                            <!--<td><a href="hk_detailwy.php?code=<?php echo $v['code']; ?>" class="active" data-toggle="class"><?php echo $v['code'];?></a></td>
+                            <td><?php echo $v['name'];?></td>-->
+                            <td><?php echo $v['update_time'];?></td>
+                            <td><?php echo $v['gujia'];?></td>
+                            <td><?php echo $v['zuidi52'] ?></td>
+                            <td><?php echo $v['ctime'];?></td>
+                            <td><?php echo sprintf('%.3f',$v['shizhi']/100000000); ?></td>
+                            <td><?php echo sprintf('%.3f',$v['ttm']);?></td>
+                            <td><?php echo sprintf('%.3f',$v['pb']);?></td>
+                            <?php if($_GET['type']=='3'){  ?>
+                                <td><?php echo sprintf('%.3f',$v['roe_sq']*100)."%";?></td>
+                            <?php }else{ ?>
+                                <td><?php echo sprintf('%.3f',$v['roe']*100)."%";?></td>
+                            <?php } ?>
+                            <td><?php echo sprintf('%.3f',$v['dyr']*100)."%";?></td>
+                            <td><?php echo sprintf('%.3f',$v['debtratio']*100)."%";?></td>
+                            <td><?php echo $v['jinjin']!='--'?sprintf('%.3f',$v['jinjin']/100000000):$v['jinjin'];?></td>
+                            <td><?php 
+			    if ($v['shizhi']/100000000 == '0') {
+				#echo sprintf('%.3f',(0))."%";
+				echo "0.000%";
+		            } else {
+			      echo sprintf('%.3f',(($v['jinjin']/100000000)/($v['shizhi']/100000000))*100)."%";
+				}
+			     ?></td>
+                            <td><?php echo $v['rank_ttm'];?></td>
+                            <?php if($_GET['type']=='3'){  ?>
+                                <td><?php echo $v['rank_roesq'];?></td>
+                                <td><?php echo $v['rank_allsq'];?></td>
+                            <?php }else{ ?>
+                                <td><?php echo $v['rank_roe'];?></td>
+                                <td><?php echo $v['rank_all'];?></td>
+                            <?php } ?>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                </tbody>
+            </table>
+        </div>
+         
+        <div style="clear: both;"></div>
+        <footer class="panel-footer" style="margin-right: 20px; margin-left: 20px;background-color: #fff;">
+            <div class="row">
+                <!--<div class="col-sm-4 hidden-xs">
+                    <select class="input-sm form-control input-s-sm inline">
+                        <option value="0">Bulk action</option>
+                        <option value="1">Delete selected</option>
+                        <option value="2">Bulk edit</option>
+                        <option value="3">Export</option>
+                    </select>
+                    <button class="btn btn-sm btn-default">Apply</button>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                </div>-->
+                <!--<div class="col-sm-12 text-right text-center-xs" >-->
+                <div class="text-right text-center-xs" >
+                    <ul class="pagination pagination-sm m-t-none m-b-none">
+                        <li><a href="/table.php?page=<?php echo ($page-1)>0?($page-1):1; ?>&key=<?php echo $_GET['key'];?>&type=<?php echo $_GET['type'];?>&htype=<?php echo $_GET['htype'];?>&name=<?php echo $_GET['name'];?>&sort=<?php echo $_GET['sort'];?>"><i class="fa fa-chevron-left"></i></a></li>
+                        <?php for($i=1;$i<=$pagecount;$i++){ ?>
+                        <li><a href="/table.php?page=<?php echo $i;?>&key=<?php echo  $_GET['key'];?>&type=<?php echo $_GET['type'];?>&htype=<?php echo $_GET['htype'];?>&name=<?php echo $_GET['name'];?>&sort=<?php echo $_GET['sort'];?>" <?php if($i==$page){ ?> style="background-color: #eeeeee;color: #188fff;"<?php } ?> ><?php echo $i; ?></a></li>
+                        <?php } ?>
+                        <li><a href="/table.php?page=<?php echo ($page+1)<=$pagecount?($page+1):$pagecount; ?>&key=<?php echo $_GET['key'];?>&type=<?php echo $_GET['type'];?>&htype=<?php echo $_GET['htype'];?>&name=<?php echo $_GET['name'];?>&sort=<?php echo $_GET['sort'];?>"><i class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </section>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="stockmangement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<a class="modal-dialog-title-close" data-dismiss="modal"></a>
+        <h4 class="modal-title" id="myModalLabel">股票管理</h4>
+      </div>
+      <div class="modal-body" style="height: 410px;">
+        <iframe src="/tableadmin.php" width="100%" height="100%" style="border:none"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade" style="display: none;"></div>
+<div class="weixin" id="weixin"><button type="button" class="close" id="weixin_close">×</button>
+<center><div style="margin-top: 5px;width: 90px;margin-bottom: 5px;">关注微信:<br><span class="red">xueqiuyun888<span></div><img src="img/weixin.jpg" class="weixin-img"></center></div>
+</body>
+<script>
+    $(document).ready(function(){
+//      $('tbody').find('tr').mouseover(function(){
+//          $(this).attr('style',"background-color:#F3F9FE");
+//      })
+//      $('tbody').find('tr').mouseout(function(){
+//          $(this).removeAttr('style');
+//          if($(this).attr('item')=='1'){
+//              $(this).attr('style',"background-color:#e8f3fd");
+//          }
+//      })
+
+		$('#weixin_close').click(function(){
+            $('#weixin').hide();
+        })
+		$('#list').find('tr').on({//鼠标经过
+			"mouseover":function(){
+	            $(this).css("background-color","#F3F9FE");
+	            $('.list_left').find('tr').eq($(this).context.rowIndex).css('background-color',"#F3F9FE");
+	        },
+	        "mouseout":function(){
+	            if($(this).attr('item')=='1'){
+	            	$('.list_left').find('tr').eq($(this).context.rowIndex).css('background-color',"#e8f3fd");
+	            	$('#list').find('tr').eq($(this).context.rowIndex).css('background-color',"#e8f3fd");
+	            }else{
+	            	$('.list_left').find('tr').eq($(this).context.rowIndex).css('background-color',"#fff");
+	            	$('#list').find('tr').eq($(this).context.rowIndex).css('background-color',"#fff");
+	            }
+	        }
+	   })
+        $('#gosearch').click(function(){
+            $('#sou').submit();
+       })
+		$("#formula").change(function(){
+			$('#sou').submit();
+		})
+        $('input[name=options]').on("click",function(){
+            if($(this).attr('id')=='hs'){
+                window.location.href="/hs_table.php?htype="+$(this).attr('id');
+            }
+            else if($(this).attr('id')=='admin'){
+   //             window.location.href = '/tableadmin.php';
+   				$('#stockmangement').show().addClass("in")
+   				$(".modal-backdrop").show().addClass("in")
+            }
+            else{
+                window.location.href="/table.php?htype="+$(this).attr('id');
+            }
+        })
+        $("a[data-dismiss=modal]").click(function(){
+        	$('#stockmangement').removeClass("in").hide()
+   			$(".modal-backdrop").removeClass("in").hide()
+        })
+        $('.th-sort').find('i').click(function(){
+           if($(this).attr('sort')=='asc'){
+               $('input[name=sort]').val('desc');
+           }else{
+               $('input[name=sort]').val('asc');
+           }
+            $('input[name=name]').val($(this).attr('item'));
+            $('#sou').submit();
+        })
+        //美化select
+        $("#formula").select2({
+        	minimumResultsForSearch: Infinity,
+        	width:'200px'
+        })
+		var scrollleft=200;
+        $(window).scroll(function() {
+		    if(($("#list").offset().top-$("body").scrollTop())<0){
+		    	$("#list thead tr,.list_left thead tr").addClass("position_th");
+		    	//$(".position_th").css({"top":$(this).scrollTop()});
+		    	$("#list .position_th").css({"left":scrollleft})
+		    	for(var i=0;i<$("#list thead th").length;i++){
+		    		$("#list thead th:eq("+i+") div").css({"width":$("#list tbody tr:eq(0) td:eq("+i+")").width()+14})
+		    	}
+		    	$(".list_left thead th:eq(0) div").css({"width":"46px"})
+		    	$(".list_left thead th:eq(1) div").css({"width":"88px"})
+		    	set_wh()
+		    	if($(".append").length==0){
+		    		$("body").append('<div class="append" style="position: fixed;width: 20px;height: 100px;top:0;left:0;background-color: #fff;z-index:1"></div>');
+		    		$("body").append('<div class="append" style="position: fixed;width: 20px;height: 100px;top:0;right:0;background-color: #fff;z-index:1"></div>');
+		    	}
+		    }else{
+		    	$("#list thead tr,.list_left thead tr").removeClass("position_th");
+		    	$(".append").remove();
+		    }
+		 });
+		 $("#list").scroll(function(){
+		 	scrollleft=-$(this).scrollLeft()+200;
+		 	$("#list .position_th").css({"left":scrollleft})
+		 })
+		 $(window).resize(function(){
+		 	$("#list").width($("body").width()-221);
+		 	set_wh();
+		 	col3w();
+		 })
+		 $("#list").width($("body").width()-221)
+		 set_wh();
+		 setTimeout(function(){
+		 	if($(".list_left thead th").height()!=$("#list thead th").height()){
+		 		set_wh();
+		 	}		 	
+		 },50)
+		
+		 $(document).bind('keyup', function(event) {
+			if (event.keyCode == "13" && $(".col3 input").is(":focus")) {
+				$('#sou').submit();
+			}
+		});
+		col3w();
+		
+    })
+    function set_wh(){//y设置表头调试
+    	var h=$("#list thead th:eq(0)").height();
+    	$(".list_left thead th,#list thead th").height(h);    	
+    }
+    function col3w(){
+		if($("body").width()>500){
+			$(".col3").width(200)
+		}else{
+			$(".col3").width($("body").width()-$(".headuser").width()-75);
+		}		
+    }
+</script>
+</html>

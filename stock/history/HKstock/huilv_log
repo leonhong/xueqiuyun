@@ -1,0 +1,33 @@
+/home/scrapy/stock/current/HKstock/HKstock/spiders/hk_history_caiwu.py:11: ScrapyDeprecationWarning: Module `scrapy.log` has been deprecated, Scrapy now relies on the builtin Python library for logging. Read the updated logging entry in the documentation to learn more.
+  from scrapy import log
+2016-12-01 14:50:03 [scrapy] INFO: Scrapy 1.0.5 started (bot: HKstock)
+2016-12-01 14:50:03 [scrapy] INFO: Optional features available: ssl, http11
+2016-12-01 14:50:03 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'HKstock.spiders', 'SPIDER_MODULES': ['HKstock.spiders'], 'LOG_LEVEL': 'INFO', 'BOT_NAME': 'HKstock'}
+2016-12-01 14:50:03 [scrapy] INFO: Enabled extensions: CloseSpider, TelnetConsole, LogStats, CoreStats, SpiderState
+2016-12-01 14:50:03 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2016-12-01 14:50:03 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2016-12-01 14:50:03 [scrapy] INFO: Enabled item pipelines: huilv
+2016-12-01 14:50:03 [scrapy] INFO: Spider opened
+2016-12-01 14:50:03 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2016-12-01 14:51:03 [scrapy] INFO: Crawled 5 pages (at 5 pages/min), scraped 5 items (at 5 items/min)
+2016-12-01 14:51:07 [scrapy] INFO: Closing spider (finished)
+2016-12-01 14:51:07 [scrapy] INFO: Dumping Scrapy stats:
+{'downloader/exception_count': 1,
+ 'downloader/exception_type_count/twisted.internet.error.TCPTimedOutError': 1,
+ 'downloader/request_bytes': 2680,
+ 'downloader/request_count': 7,
+ 'downloader/request_method_count/GET': 7,
+ 'downloader/response_bytes': 3967,
+ 'downloader/response_count': 6,
+ 'downloader/response_status_count/200': 6,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2016, 12, 1, 6, 51, 7, 461064),
+ 'item_scraped_count': 6,
+ 'log_count/INFO': 8,
+ 'response_received_count': 6,
+ 'scheduler/dequeued': 7,
+ 'scheduler/dequeued/memory': 7,
+ 'scheduler/enqueued': 7,
+ 'scheduler/enqueued/memory': 7,
+ 'start_time': datetime.datetime(2016, 12, 1, 6, 50, 3, 665629)}
+2016-12-01 14:51:07 [scrapy] INFO: Spider closed (finished)

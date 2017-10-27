@@ -1,0 +1,6 @@
+
+
+start_all_current_spider.sh 15 min
+stock_real.sh  1hour 40min
+start_all_history_spider.sh 30min
+

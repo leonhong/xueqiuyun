@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>没找到</title>
+		<style>
+		*{
+			margin:0;padding:0;
+		}
+		html,body{
+			height: 100%;
+			width: 100%;
+			font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+		}
+		.notitle{
+			position: fixed;
+			top: 0;
+			left: 0;
+		    line-height: 58px;
+		    text-align: center;
+	        font-size: 24px;
+		    color: gray;
+		    text-decoration: none;
+		    -webkit-transition: all .05s ease-in-out;
+		    -moz-transition: all .05s ease-in-out;
+		    -o-transition: all .05s ease-in-out;
+		    transition: all .05s ease-in-out;
+		    margin-left: 20px;
+		}
+		.notitle:hover{
+			color:#000;
+		}
+		.nobody{
+			text-align: center;
+			display: table;
+			width: 100%;
+			height: 100%;
+		}
+		.nobody div{
+			display: table-cell;
+		    vertical-align: middle;
+		}
+		.nobody span{
+			border: 4px solid #333;
+		    color: #333;
+		    width: 96px;
+		    height: 96px;
+		    line-height: 96px;
+		    text-align: center;
+		    margin: 0 auto;
+		    font-size: 38px;
+		    margin-bottom: 28px;
+	        display: block;
+		}
+		.nobody p{
+		    color: #333;
+			margin-bottom: 48px;
+			font-size: 16px;
+		}
+		.nobody a{
+		    color: #0080ff;
+	        padding: 8px 17px;
+		    line-height: 20px;
+		    border: 1px solid #0080ff;
+		    border-radius: 4px;
+		    margin: 0;
+		    cursor: pointer;
+		    font-size: 14px;
+		    background-color: transparent;
+		    -webkit-box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+		    display: inline-block;
+		    min-width: 80px;
+		    min-height: 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    -webkit-transition: background ease-out .1s;
+		    transition: background ease-out .1s;
+		}
+		</style>
+	</head>
+	<body>
+		<header>
+			<a href="login.php" class="notitle" id="notitle">股</a>
+		</header>
+		<div class="nobody">
+			<div>
+			<span>404</span>
+			<p>抱歉，没有找到该页面</p>
+			<a onclick="history.go(-1)">返回上一级页面 »</a>
+			</div>
+		</div>
+		<script type="text/javascript">
+			console.log(navigator.userAgent)
+			if(navigator.userAgent.indexOf('Mobile')>-1){
+				document.getElementById("notitle").style.color = "black";
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,203 @@
+/home/scrapy/stock/current/HKstock/HKstock/spiders/hk_history_caiwu.py:11: ScrapyDeprecationWarning: Module `scrapy.log` has been deprecated, Scrapy now relies on the builtin Python library for logging. Read the updated logging entry in the documentation to learn more.
+  from scrapy import log
+2016-12-01 14:50:03 [scrapy] INFO: Scrapy 1.0.5 started (bot: HKstock)
+2016-12-01 14:50:03 [scrapy] INFO: Optional features available: ssl, http11
+2016-12-01 14:50:03 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'HKstock.spiders', 'SPIDER_MODULES': ['HKstock.spiders'], 'LOG_LEVEL': 'INFO', 'BOT_NAME': 'HKstock'}
+2016-12-01 14:50:03 [scrapy] INFO: Enabled extensions: CloseSpider, TelnetConsole, LogStats, CoreStats, SpiderState
+2016-12-01 14:50:03 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2016-12-01 14:50:03 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2016-12-01 14:50:03 [scrapy] INFO: Enabled item pipelines: hk_caiwu
+2016-12-01 14:50:03 [scrapy] INFO: Spider opened
+2016-12-01 14:50:03 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2016-12-01 14:50:03 [py.warnings] WARNING: /home/scrapy/stock/current/HKstock/HKstock/spiders/xl_hk_caiwu.py:56: ScrapyDeprecationWarning: log.msg has been deprecated, create a python logger and log through it instead
+  log.msg("no data "+code)
+
+2016-12-01 14:50:03 [scrapy] INFO: no data 00013
+2016-12-01 14:50:05 [scrapy] INFO: no data 00049
+2016-12-01 14:50:06 [scrapy] INFO: no data 00074
+2016-12-01 14:50:08 [scrapy] INFO: no data 00140
+2016-12-01 14:50:10 [scrapy] INFO: no data 00203
+2016-12-01 14:50:13 [scrapy] INFO: no data 00302
+2016-12-01 14:50:13 [scrapy] INFO: no data 00304
+2016-12-01 14:50:14 [scrapy] INFO: no data 00325
+2016-12-01 14:50:15 [scrapy] INFO: no data 00349
+2016-12-01 14:50:15 [scrapy] INFO: no data 00350
+2016-12-01 14:50:17 [scrapy] INFO: no data 00409
+2016-12-01 14:50:17 [scrapy] INFO: no data 00421
+2016-12-01 14:50:18 [scrapy] INFO: no data 00448
+2016-12-01 14:50:18 [scrapy] INFO: no data 00457
+2016-12-01 14:50:18 [scrapy] INFO: no data 00477
+2016-12-01 14:50:19 [scrapy] INFO: no data 00502
+2016-12-01 14:50:19 [scrapy] INFO: no data 00516
+2016-12-01 14:50:22 [scrapy] INFO: no data 00597
+2016-12-01 14:50:23 [scrapy] INFO: no data 00642
+2016-12-01 14:50:24 [scrapy] INFO: no data 00667
+2016-12-01 14:50:26 [scrapy] INFO: no data 00739
+2016-12-01 14:50:27 [scrapy] INFO: no data 00773
+2016-12-01 14:50:29 [scrapy] INFO: no data 00870
+2016-12-01 14:50:31 [scrapy] INFO: no data 00917
+2016-12-01 14:50:31 [scrapy] INFO: no data 00946
+2016-12-01 14:50:31 [scrapy] INFO: no data 00955
+2016-12-01 14:50:33 [scrapy] INFO: no data 01025
+2016-12-01 14:50:38 [scrapy] INFO: no data 01208
+2016-12-01 14:50:41 [scrapy] INFO: no data 01633
+2016-12-01 14:50:41 [scrapy] INFO: no data 01658
+2016-12-01 14:50:41 [scrapy] INFO: no data 01768
+2016-12-01 14:50:42 [scrapy] INFO: no data 01832
+2016-12-01 14:50:43 [scrapy] INFO: no data 01968
+2016-12-01 14:50:43 [scrapy] INFO: no data 01997
+2016-12-01 14:50:44 [scrapy] INFO: no data 02266
+2016-12-01 14:50:44 [scrapy] INFO: no data 02301
+2016-12-01 14:50:45 [scrapy] INFO: no data 02332
+2016-12-01 14:50:45 [scrapy] INFO: no data 02337
+2016-12-01 14:50:46 [scrapy] INFO: no data 02387
+2016-12-01 14:50:46 [scrapy] INFO: no data 02618
+2016-12-01 14:50:46 [scrapy] INFO: no data 02626
+2016-12-01 14:50:46 [scrapy] INFO: no data 02633
+2016-12-01 14:50:47 [scrapy] INFO: no data 02800
+2016-12-01 14:50:47 [scrapy] INFO: no data 02801
+2016-12-01 14:50:47 [scrapy] INFO: no data 02802
+2016-12-01 14:50:47 [scrapy] INFO: no data 02803
+2016-12-01 14:50:47 [scrapy] INFO: no data 02809
+2016-12-01 14:50:47 [scrapy] INFO: no data 02810
+2016-12-01 14:50:47 [scrapy] INFO: no data 02806
+2016-12-01 14:50:47 [scrapy] INFO: no data 02814
+2016-12-01 14:50:47 [scrapy] INFO: no data 02812
+2016-12-01 14:50:47 [scrapy] INFO: no data 02815
+2016-12-01 14:50:47 [scrapy] INFO: no data 02813
+2016-12-01 14:50:47 [scrapy] INFO: no data 02816
+2016-12-01 14:50:47 [scrapy] INFO: no data 02817
+2016-12-01 14:50:47 [scrapy] INFO: no data 02818
+2016-12-01 14:50:47 [scrapy] INFO: no data 02819
+2016-12-01 14:50:47 [scrapy] INFO: no data 02820
+2016-12-01 14:50:47 [scrapy] INFO: no data 02821
+2016-12-01 14:50:47 [scrapy] INFO: no data 02825
+2016-12-01 14:50:47 [scrapy] INFO: no data 02823
+2016-12-01 14:50:47 [scrapy] INFO: no data 02826
+2016-12-01 14:50:47 [scrapy] INFO: no data 02827
+2016-12-01 14:50:47 [scrapy] INFO: no data 02833
+2016-12-01 14:50:47 [scrapy] INFO: no data 02831
+2016-12-01 14:50:47 [scrapy] INFO: no data 02837
+2016-12-01 14:50:47 [scrapy] INFO: no data 02835
+2016-12-01 14:50:47 [scrapy] INFO: no data 02828
+2016-12-01 14:50:47 [scrapy] INFO: no data 02829
+2016-12-01 14:50:47 [scrapy] INFO: no data 02836
+2016-12-01 14:50:47 [scrapy] INFO: no data 02838
+2016-12-01 14:50:47 [scrapy] INFO: no data 02839
+2016-12-01 14:50:47 [scrapy] INFO: no data 02840
+2016-12-01 14:50:47 [scrapy] INFO: no data 02841
+2016-12-01 14:50:47 [scrapy] INFO: no data 02846
+2016-12-01 14:50:48 [scrapy] INFO: no data 02848
+2016-12-01 14:50:48 [scrapy] INFO: no data 02844
+2016-12-01 14:50:48 [scrapy] INFO: no data 02900
+2016-12-01 14:50:48 [scrapy] INFO: no data 02901
+2016-12-01 14:50:48 [scrapy] INFO: no data 02908
+2016-12-01 14:50:48 [scrapy] INFO: no data 02909
+2016-12-01 14:50:48 [scrapy] INFO: no data 02912
+2016-12-01 14:50:48 [scrapy] INFO: no data 02917
+2016-12-01 14:50:48 [scrapy] INFO: no data 02922
+2016-12-01 14:50:49 [scrapy] INFO: no data 02927
+2016-12-01 14:50:49 [scrapy] INFO: no data 02929
+2016-12-01 14:50:49 [scrapy] INFO: no data 02931
+2016-12-01 14:50:49 [scrapy] INFO: no data 02943
+2016-12-01 14:50:49 [scrapy] INFO: no data 02958
+2016-12-01 14:50:50 [scrapy] INFO: no data 02974
+2016-12-01 14:50:50 [scrapy] INFO: no data 02975
+2016-12-01 14:50:50 [scrapy] INFO: no data 02981
+2016-12-01 14:50:50 [scrapy] INFO: no data 02988
+2016-12-01 14:50:50 [scrapy] INFO: no data 03000
+2016-12-01 14:50:50 [scrapy] INFO: no data 03001
+2016-12-01 14:50:50 [scrapy] INFO: no data 03002
+2016-12-01 14:50:50 [scrapy] INFO: no data 03004
+2016-12-01 14:50:50 [scrapy] INFO: no data 03005
+2016-12-01 14:50:51 [scrapy] INFO: no data 03006
+2016-12-01 14:50:51 [scrapy] INFO: no data 03007
+2016-12-01 14:50:51 [scrapy] INFO: no data 03009
+2016-12-01 14:50:51 [scrapy] INFO: no data 03010
+2016-12-01 14:50:51 [scrapy] INFO: no data 03011
+2016-12-01 14:50:51 [scrapy] INFO: no data 03015
+2016-12-01 14:50:51 [scrapy] INFO: no data 03017
+2016-12-01 14:50:51 [scrapy] INFO: no data 03025
+2016-12-01 14:50:51 [scrapy] INFO: no data 03019
+2016-12-01 14:50:51 [scrapy] INFO: no data 03020
+2016-12-01 14:50:51 [scrapy] INFO: no data 03024
+2016-12-01 14:50:51 [scrapy] INFO: no data 03022
+2016-12-01 14:50:51 [scrapy] INFO: no data 03027
+2016-12-01 14:50:51 [scrapy] INFO: no data 03032
+2016-12-01 14:50:51 [scrapy] INFO: no data 03039
+2016-12-01 14:50:51 [scrapy] INFO: no data 03035
+2016-12-01 14:50:51 [scrapy] INFO: no data 03033
+2016-12-01 14:50:51 [scrapy] INFO: no data 03048
+2016-12-01 14:50:51 [scrapy] INFO: no data 03036
+2016-12-01 14:50:51 [scrapy] INFO: no data 03046
+2016-12-01 14:50:51 [scrapy] INFO: no data 03043
+2016-12-01 14:50:51 [scrapy] INFO: no data 03050
+2016-12-01 14:50:51 [scrapy] INFO: no data 03051
+2016-12-01 14:50:51 [scrapy] INFO: no data 03049
+2016-12-01 14:50:51 [scrapy] INFO: no data 03052
+2016-12-01 14:50:51 [scrapy] INFO: no data 03062
+2016-12-01 14:50:51 [scrapy] INFO: no data 03063
+2016-12-01 14:50:51 [scrapy] INFO: no data 03061
+2016-12-01 14:50:51 [scrapy] INFO: no data 03057
+2016-12-01 14:50:51 [scrapy] INFO: no data 03081
+2016-12-01 14:50:51 [scrapy] INFO: no data 03077
+2016-12-01 14:50:51 [scrapy] INFO: no data 03073
+2016-12-01 14:50:51 [scrapy] INFO: no data 03071
+2016-12-01 14:50:51 [scrapy] INFO: no data 03087
+2016-12-01 14:50:51 [scrapy] INFO: no data 03088
+2016-12-01 14:50:51 [scrapy] INFO: no data 03083
+2016-12-01 14:50:53 [scrapy] INFO: no data 03928
+2016-12-01 14:50:53 [scrapy] INFO: no data 03938
+2016-12-01 14:50:53 [scrapy] INFO: no data 04305
+2016-12-01 14:50:53 [scrapy] INFO: no data 04321
+2016-12-01 14:50:53 [scrapy] INFO: no data 04331
+2016-12-01 14:50:53 [scrapy] INFO: no data 04332
+2016-12-01 14:50:53 [scrapy] INFO: no data 04333
+2016-12-01 14:50:53 [scrapy] INFO: no data 04335
+2016-12-01 14:50:53 [scrapy] INFO: no data 04337
+2016-12-01 14:50:53 [scrapy] INFO: no data 04338
+2016-12-01 14:50:53 [scrapy] INFO: no data 04336
+2016-12-01 14:50:53 [scrapy] INFO: no data 06099
+2016-12-01 14:50:54 [scrapy] INFO: no data 06230
+2016-12-01 14:50:54 [scrapy] INFO: no data 06488
+2016-12-01 14:50:54 [scrapy] INFO: no data 08010
+2016-12-01 14:50:54 [scrapy] INFO: no data 08015
+2016-12-01 14:50:54 [scrapy] INFO: no data 08017
+2016-12-01 14:50:54 [scrapy] INFO: no data 08035
+2016-12-01 14:50:55 [scrapy] INFO: no data 08043
+2016-12-01 14:50:55 [scrapy] INFO: no data 08052
+2016-12-01 14:50:55 [scrapy] INFO: no data 08068
+2016-12-01 14:50:56 [scrapy] INFO: no data 08136
+2016-12-01 14:50:56 [scrapy] INFO: no data 08149
+2016-12-01 14:50:56 [scrapy] INFO: no data 08151
+2016-12-01 14:50:57 [scrapy] INFO: no data 08180
+2016-12-01 14:50:57 [scrapy] INFO: no data 08188
+2016-12-01 14:50:58 [scrapy] INFO: no data 08210
+2016-12-01 14:50:58 [scrapy] INFO: no data 08253
+2016-12-01 14:50:59 [scrapy] INFO: no data 08305
+2016-12-01 14:50:59 [scrapy] INFO: no data 08321
+2016-12-01 14:50:59 [scrapy] INFO: no data 08374
+2016-12-01 14:50:59 [scrapy] INFO: no data 08379
+2016-12-01 14:51:00 [scrapy] INFO: no data 08384
+2016-12-01 14:51:00 [scrapy] INFO: no data 08394
+2016-12-01 14:51:00 [scrapy] INFO: no data 08397
+2016-12-01 14:51:00 [scrapy] INFO: Closing spider (finished)
+2016-12-01 14:51:00 [scrapy] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1050112,
+ 'downloader/request_count': 1796,
+ 'downloader/request_method_count/GET': 1796,
+ 'downloader/response_bytes': 1301271,
+ 'downloader/response_count': 1796,
+ 'downloader/response_status_count/200': 1796,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2016, 12, 1, 6, 51, 0, 404267),
+ 'item_scraped_count': 12525,
+ 'log_count/INFO': 176,
+ 'log_count/WARNING': 1,
+ 'response_received_count': 1796,
+ 'scheduler/dequeued': 1796,
+ 'scheduler/dequeued/memory': 1796,
+ 'scheduler/enqueued': 1796,
+ 'scheduler/enqueued/memory': 1796,
+ 'start_time': datetime.datetime(2016, 12, 1, 6, 50, 3, 328095)}
+2016-12-01 14:51:00 [scrapy] INFO: Spider closed (finished)

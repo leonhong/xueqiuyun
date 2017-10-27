@@ -1,0 +1,52 @@
+<!DOCTYPE html >
+
+<head>
+	<title>金牌教练</title>
+	<meta name="keywords" content="金牌教练" />
+	<meta name="description" content="金牌教练" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="__APP__/../Public/Mobile/css/apply.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/../Public/Mobile/css/share.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/../Public/Mobile/css/public.css">
+	<script type="text/javascript" src="__APP__/../Public/Mobile/js/jquery.js"></script>
+	<script type="text/javascript" src="__APP__/../Public/Mobile/js/myConfig.js"></script>
+</head>
+
+<body>
+	<div id="wrap" class="clearfix overflow mg-auto">
+		<img src="__APP__/../Public/Mobile/img/QQ截图20160520140121.png" />
+		<div class="clearfix">
+			<div class="clearfix tab-con2 border">
+				<ul class="clearfix" id="content">
+					<volist name="jllist" id="jllist">
+					<li>
+						<a href="/Index/jiaolianxiangqing?id={$jllist.UserID}" class="tab-con-href2 clearfix">
+							<div class="img2"><img src="{$jllist.UserImage}"></div>
+							<h4>{$jllist.UserName}</h4>
+							<span style="color: #FFA200;">{$jllist.UserIgnature}</span>
+							<!--<p><i>{$jllist.DrivingSchoolID}</i></p>-->
+							<span style="float: right;font-size: larger;">教龄<br/>{$jllist.TeachAge}年</span>
+						</a>
+					</li>
+					</volist>
+				</ul>
+			</div>
+			<!-- <div class="i-more">
+         <a href="#">查看更多分类</a>
+       </div>-->
+		</div>
+		<div style="height: 80px;"></div>
+		<!--<div style="text-align: center;height: 30px;padding-top: 8px;background-color: #ffa200;position: fixed;bottom: 0px;width: 100%;">
+			<a href="jiaruwomen.html"><font size="3px" color="#FFFFFF"><b>加入我们</b></font></a>
+		</div>-->
+	</div>
+
+</body>
+
+<script type="text/javascript" src="__APP__/../Public/Mobile/js/com.js"></script>
+<script type="text/javascript">
+	window.onload = function() {};
+</script>
+
+</html>

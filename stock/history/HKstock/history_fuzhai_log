@@ -1,0 +1,11 @@
+/home/scrapy/stock/history/HKstock/HKstock/spiders/hk_history_caiwu.py:11: ScrapyDeprecationWarning: Module `scrapy.log` has been deprecated, Scrapy now relies on the builtin Python library for logging. Read the updated logging entry in the documentation to learn more.
+  from scrapy import log
+2016-12-05 14:29:02 [scrapy] INFO: Scrapy 1.0.5 started (bot: HKstock)
+2016-12-05 14:29:02 [scrapy] INFO: Optional features available: ssl, http11
+2016-12-05 14:29:02 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'HKstock.spiders', 'SPIDER_MODULES': ['HKstock.spiders'], 'LOG_LEVEL': 'INFO', 'BOT_NAME': 'HKstock'}
+2016-12-05 14:29:02 [scrapy] INFO: Enabled extensions: CloseSpider, TelnetConsole, LogStats, CoreStats, SpiderState
+2016-12-05 14:29:02 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2016-12-05 14:29:02 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2016-12-05 14:29:02 [scrapy] INFO: Enabled item pipelines: history_hk_fuzhai
+2016-12-05 14:29:02 [scrapy] INFO: Spider opened
+2016-12-05 14:29:02 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)

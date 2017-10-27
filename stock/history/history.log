@@ -1,0 +1,12 @@
+Fri Oct 27 03:10:04 CST 2017 sh/start.sh start.
+Fri Oct 27 03:21:09 CST 2017 sh/start.sh finish.
+Fri Oct 27 03:21:09 CST 2017 sz/start.sh start.
+Fri Oct 27 03:33:32 CST 2017 sz/start.sh finish.
+Fri Oct 27 03:33:32 CST 2017 ./hk/get_hk_history_infos/start.sh start.
+Fri Oct 27 03:35:41 CST 2017 ./hk/get_hk_history_infos/start.sh finish.
+Fri Oct 27 03:35:41 CST 2017 ./start_HK_history.sh start.
+Fri Oct 27 03:38:56 CST 2017 ./start_HK_history.sh finish.
+Fri Oct 27 03:38:56 CST 2017 ./CodeList/start_HKcode.sh start.
+Fri Oct 27 03:39:01 CST 2017 ./CodeList/start_HKcode.sh finish.
+Fri Oct 27 03:39:01 CST 2017 ./CodeList/start_HScode.sh start.
+Fri Oct 27 03:39:05 CST 2017 ./CodeList/start_HScode.sh finish.

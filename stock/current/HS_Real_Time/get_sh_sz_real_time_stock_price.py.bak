@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+import urllib
+import MySQLdb
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+def getConnAndCursor():
+    conn = MySQLdb.connect(
+        host='127.0.0.1',
+        port=3306,
+        user='root',
+        passwd='20160401',
+        db='stock',
+        charset='utf8'
+    )
+    cur = conn.cursor()
+    return (conn, cur)
+ 
+def closeConnAndCursor(cur, conn):
+    cur.close()
+    conn.commit()
+    conn.close()
+
+def get_real_time_info(stock_code, stock_name, market):
+    #market = 'sh'
+    #stock_code = '600795'
+    #stock_name = '国电电力'
+    url='http://qt.gtimg.cn/S?q=' + market + stock_code
+    page=urllib.urlopen(url)
+    data=page.read()
+    # print data
+    if 'v_pv_none_match' in data:
+        return
+    stock_price = ''
+    total_market_value = ''
+    tmp_arr = data.split('|')
+    if len(tmp_arr) > 1:
+        tmp_real_time_info = tmp_arr[1]
+        stock_price_arr = tmp_real_time_info.split('/')
+        if len(stock_price_arr) > 1:
+            stock_price = stock_price_arr[1]
+            #print 'stock_price:' + stock_price
+            
+    tmp_arr2 = data.split('/')
+    circulation_market_value_double=0
+    stock_time="-"
+    if len(tmp_arr2) > 0:
+        tmp_info = tmp_arr2[len(tmp_arr2) - 1]
+        total_market_value_arr = tmp_info.split('~')
+        if len(total_market_value_arr) > 10:
+            total_market_value = total_market_value_arr[10]
+            if len(total_market_value) > 0:
+                circulation_market_value_double = float(total_market_value) * 100000000
+            #print 'total_market_value:' + total_market_value
+
+        tmp_time = tmp_arr2[len(tmp_arr2) - 3]
+        time_arr = tmp_time.split('~')
+        if len(time_arr) > 2:
+            stock_time = time_arr[1]
+    
+    if len(stock_price) > 0 and float(stock_price) > 0 and circulation_market_value_double > 0:
+        sql = "update xl_sh_real_time_share_price set stock_name='" + str(stock_name) + "',"\
+"stock_price='" + str(stock_price) + "',"\
+"stock_time='" + str(stock_time) + "',"\
+"total_market_value='" + str(circulation_market_value_double) + "' where stock_code='" + str(stock_code) + "'"
+
+        #print 'sql:' + sql
+        print str(stock_code)
+        (conn, cur) = getConnAndCursor()
+        cur.execute(sql)
+        conn.commit()
+        closeConnAndCursor(cur, conn)
+        
+if __name__ == '__main__':
+    (conn_new, cur_new) = getConnAndCursor()
+    stock_code_list = cur_new.execute("select stock_code, stock_name from sh_stock_list")
+    stock_code_infos = cur_new.fetchmany(stock_code_list)
+    for stock_info in stock_code_infos:
+        stock_code = str(stock_info[0])
+        stock_name = str(stock_info[1])
+        #print stock_code
+        #print stock_name
+        retryTimes = 0
+        while retryTimes < 5:
+            try:
+                get_real_time_info(stock_code, stock_name, 'sh')
+                retryTimes = 5
+            except Exception, e:
+                retryTimes = retryTimes + 1
+    
+    stock_code_list = cur_new.execute("select stock_code, stock_name from sz_stock_list")
+    stock_code_infos = cur_new.fetchmany(stock_code_list)
+    for stock_info in stock_code_infos:
+        stock_code = str(stock_info[0])
+        stock_name = str(stock_info[1])
+        #print stock_code
+        #print stock_name
+        retryTimes = 0
+        while retryTimes < 5:
+            try:
+                get_real_time_info(stock_code, stock_name, 'sz')
+                retryTimes = 5
+            except Exception, e:
+                retryTimes = retryTimes + 1
+    closeConnAndCursor(cur_new, conn_new)
+    
+#file = open("code.json","w")
+#file.write(data)
+#file.close()
+#print"output json succeed"
+#dic = json.loads(file("data.json")) 
