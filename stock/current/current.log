@@ -1,4 +1,4 @@
-Fri Oct 27 09:23:23 CST 2017 HS_Real_Time/start.sh start.
+Thu Dec  7 13:08:56 CST 2017 HS_Real_Time/start.sh start.
 ./HS_Real_Time
 0
 没有运行
@@ -2093,6 +2093,8 @@ N台华
 华贸物流
 603131
 上海沪工
+603157
+拉夏贝尔
 603158
 腾龙股份
 603159
@@ -6509,19 +6511,19 @@ GQY视讯
 天宇股份
 300703
 创源文化
-Fri Oct 27 09:26:57 CST 2017 HS_Real_Time/start.sh finish.
-Fri Oct 27 09:26:57 CST 2017 ./HKstock/start_hk_value.sh start.
-Fri Oct 27 09:28:22 CST 2017 ./HKstock/start_hk_value.sh finish.
-Fri Oct 27 09:28:22 CST 2017 ./HKstock/start_hk_fuzhai.sh start.
-Fri Oct 27 09:31:30 CST 2017 ./HKstock/start_hk_fuzhai.sh finish.
-Fri Oct 27 09:31:30 CST 2017 ./HKstock/start_hk_caiwu.sh start.
-Fri Oct 27 09:34:35 CST 2017 ./HKstock/start_hk_caiwu.sh finish.
-Fri Oct 27 09:34:35 CST 2017 ./HKstock/start_hk_xianjin.sh start.
-Fri Oct 27 09:37:16 CST 2017 ./HKstock/start_hk_xianjin.sh finish.
-Fri Oct 27 09:37:16 CST 2017 ./HKstock/start_hk_sunyi.sh start.
-Fri Oct 27 09:40:26 CST 2017 ./HKstock/start_hk_sunyi.sh finish.
-Fri Oct 27 09:40:26 CST 2017 ./HKstock/start_hk_huilv.sh start.
-Fri Oct 27 09:41:32 CST 2017 ./HKstock/start_hk_huilv.sh finish.
-Fri Oct 27 09:41:32 CST 2017 ./HSstock/start_hs_fuzhai.sh start.
-Fri Oct 27 09:46:29 CST 2017 ./HSstock/start_hs_fuzhai.sh finish.
-Fri Oct 27 09:46:29 CST 2017 ./HSstock/start_hs_lirun.sh start.
+Thu Dec  7 13:13:06 CST 2017 HS_Real_Time/start.sh finish.
+Thu Dec  7 13:13:06 CST 2017 ./HKstock/start_hk_value.sh start.
+Thu Dec  7 13:14:41 CST 2017 ./HKstock/start_hk_value.sh finish.
+Thu Dec  7 13:14:41 CST 2017 ./HKstock/start_hk_fuzhai.sh start.
+Thu Dec  7 13:17:31 CST 2017 ./HKstock/start_hk_fuzhai.sh finish.
+Thu Dec  7 13:17:31 CST 2017 ./HKstock/start_hk_caiwu.sh start.
+Thu Dec  7 13:20:15 CST 2017 ./HKstock/start_hk_caiwu.sh finish.
+Thu Dec  7 13:20:15 CST 2017 ./HKstock/start_hk_xianjin.sh start.
+Thu Dec  7 13:22:45 CST 2017 ./HKstock/start_hk_xianjin.sh finish.
+Thu Dec  7 13:22:45 CST 2017 ./HKstock/start_hk_sunyi.sh start.
+Thu Dec  7 13:25:34 CST 2017 ./HKstock/start_hk_sunyi.sh finish.
+Thu Dec  7 13:25:34 CST 2017 ./HKstock/start_hk_huilv.sh start.
+Thu Dec  7 13:26:38 CST 2017 ./HKstock/start_hk_huilv.sh finish.
+Thu Dec  7 13:26:38 CST 2017 ./HSstock/start_hs_fuzhai.sh start.
+Thu Dec  7 13:30:55 CST 2017 ./HSstock/start_hs_fuzhai.sh finish.
+Thu Dec  7 13:30:55 CST 2017 ./HSstock/start_hs_lirun.sh start.
