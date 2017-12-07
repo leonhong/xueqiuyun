@@ -1,12 +1,12 @@
 <?php
-	session_start();
-    if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
-        header("location:/login.php");
-    }
-    $long = time()-$_SESSION['login_time'];
-    if($long/60>60*12){
-        header("location:/out.php");
-    }
+#	session_start();
+#    if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
+#        header("location:/login.php");
+#    }
+#    $long = time()-$_SESSION['login_time'];
+#    if($long/60>60*12){
+#        header("location:/out.php");
+#    }
 	?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +78,7 @@
 		                    </label>
 	                    </div>
 						<div class="col4 hweixin-margin">
-							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">xueqiuyun888<span>
+							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">imhobgliang<span>
 						</div>
 		            	<img src="img/da8e974dc_s.jpg"/>
 		            	<span><?php echo $_SESSION['adminuser'] ?></span>&nbsp;&nbsp;
@@ -87,7 +87,7 @@
 	            <?php }else{?>
 	            	<div class="headuser">
 						<div class="col4 hweixin-margin">
-							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">xueqiuyun888<span>
+							<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">imhobgliang<span>
 						</div>
 		            	<img src="img/da8e974dc_s.jpg"/>
 		            	<span>游客</span>&nbsp;&nbsp;
@@ -418,7 +418,7 @@ $db_conf['prot'] = '3306';
 </div>
 <div class="modal-backdrop fade" style="display: none;"></div>
 <div class="weixin" id="weixin"><button type="button" class="close" id="weixin_close">×</button>
-<center><div style="margin-top: 5px;width: 90px;margin-bottom: 5px;">关注微信:<br><span class="red">xueqiuyun888<span></div><img src="img/weixin.jpg" class="weixin-img"></center></div>
+<center><div style="margin-top: 5px;width: 90px;margin-bottom: 5px;"><span class="red">扫码获取更多功能<span></div><img src="img/weixin.jpg" class="weixin-img"></center></div>
 </body>
 <script>
     $(document).ready(function(){

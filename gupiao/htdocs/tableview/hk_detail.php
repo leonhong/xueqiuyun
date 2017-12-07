@@ -1,9 +1,10 @@
 <?php
-if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
+/*if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
     header("location:/login.php");
 }
 header("content-type:text/html;charset=utf-8");
 set_time_limit(18000000);
+*/
 ini_set("display_errors", "On");
 /**
  * 执行股票列表计算

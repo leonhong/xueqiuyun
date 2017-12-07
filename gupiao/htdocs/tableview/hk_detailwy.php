@@ -1,12 +1,12 @@
 <?php
-session_start();
-if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
-	header("location:/login.php");
-}
-$long = time()-$_SESSION['login_time'];
-if($long/60>60*12){
-	header("location:/out.php");
-}
+//session_start();
+//if(!isset($_SESSION['adminuser'])&&!isset($_SESSION['youke'])){
+//	header("location:/login.php");
+//}
+//$long = time()-$_SESSION['login_time'];
+//if($long/60>60*12){
+//	header("location:/out.php");
+//}
 header("content-type:text/html;charset=utf-8");
 set_time_limit(18000000);
 ini_set("display_errors", "On");
@@ -104,7 +104,7 @@ $keyarr = array(
             <a class="title_btn" href="javascript:history.go(-1)">返回</a>
         	<h4 style="color: #fff0ff;">股票详情</h4>
 			<div class="hweixin-margin">
-				<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">xueqiuyun888<span></div>
+				<img src="img/weixin_logo.png" class="hweixin-img"><span class="hweixin-span">imhobgliang<span></div>
 	        </div>
         </header>
         <!--<div class="row text-sm wrapper">

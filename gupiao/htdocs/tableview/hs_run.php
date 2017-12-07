@@ -25,7 +25,7 @@ $db =  new DB($db_conf);
     $where = '';
 }*/
 
-//$where = " where stock_code='600000'";
+//$where = " where stock_code='900941'";
 $where = '';
 $quanjudanwei = 1;
 /*查询当前股票列表*/
@@ -229,6 +229,7 @@ try {
         $data['shizhi'] = $shizhi;
         $data['bili'] = $data['jinjin']/$shizhi;
 
+	
 	//var_dump($data);
         //echo json_encode($data);
         //echo "</br>";
