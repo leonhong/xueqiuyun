@@ -34,15 +34,16 @@ if(isset($_SESSION['adminuser'])||isset($_SESSION['youke'])){
 		</div>
         <section id="aui_iwrapper" class="sign-flow">
             <div class="index-tab-navs">
-				<div class="navs-slider" data-active-index="1">							
-					<a class="active" id="loginbtn"><span>登录</span></a>		
-					<a class="" id="touristbtn"><span>游客</span></a>						
+				<div class="navs-slider" data-active-index="1">		
+					<a class="active" id="touristbtn"><span>游客</span></a>
+					<a class="" id="loginbtn"><span>登录</span></a>		
+						
 				</div>
 			</div>
 			<div class="tourist">
 				<a href="/youke.php" class="sign-button submit" id="show">进入系统</a>
 			</div>
-            <form action="#" class="view view-signin" autocomplete="off" >
+            <form action="#" class="view view-signin" autocomplete="off" style="display: none;" >
                 <div class="group-inputs ">
                 	<div class="input-wrapper">
 	                    <input type="text" name="username" value="" placeholder="请输入账号"/>
@@ -60,7 +61,8 @@ if(isset($_SESSION['adminuser'])||isset($_SESSION['youke'])){
     </div>
 </section>
 <footer id="footer">
-Copyright © 2016 沈阳雪球云科技有限公司 ICP证：辽ICP备16011533号
+© 2016 雪球云 ICP证：辽ICP备16011533号<br>
+风险提示：投资决策需要建立在独立思考之上<br>
 </footer>
 <div id="particles-js"></div>
 <!-- / footer -->
@@ -97,7 +99,7 @@ $(document).ready(function(){
             dataType:'json',
             success:function(data){
                 if(data.status=='0'){
-                    window.location.href = '/table.php';
+                    window.location.href = '/hs_table.php';
                 }else{
            //         shake('aui_iwrapper', true);
                     $('.notice-password').text(data.error).addClass("is-visible");
